@@ -196,8 +196,6 @@ class PresensiController extends Controller
             $jamkerja = DB::table('jam_kerja')->where('kode_jam_kerja', $kode_jam_kerja)->first();
         }
 
-
-
         $presensi = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik);
         $cek = $presensi->count();
         $datapresensi = $presensi->first();
@@ -223,9 +221,10 @@ class PresensiController extends Controller
             echo "error|Maaf Anda Berada Diluar Radius, Jarak Anda " . $radius . " meter dari Kantor|radius";
         } else {
             if ($cek > 0) {
-                if ($jam_pulang < $jamkerja_pulang) {
-                    echo "error|Maaf Belum Waktunya Pulang |out";
-                } else if (!empty($datapresensi->jam_out)) {
+                // if ($jam_pulang < $jamkerja_pulang) {
+                //    echo "error|Maaf Belum Waktunya Pulang |out";
+                // } 
+                if (!empty($datapresensi->jam_out)) {
                     echo "error|Anda Sudah Melakukan Absen Pulang Sebelmnya ! |out";
                 } else {
                     $data_pulang = [
