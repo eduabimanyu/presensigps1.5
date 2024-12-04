@@ -198,7 +198,7 @@ class PresensiController extends Controller
 
         $presensi = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('nik', $nik);
         $cek = $presensi->count();
-        $datapresensi = $presensi->first();
+        //$datapresensi = $presensi->first();
         if ($cek > 0) {
             $ket = "out";
         } else {
@@ -221,12 +221,12 @@ class PresensiController extends Controller
             echo "error|Maaf Anda Berada Diluar Radius, Jarak Anda " . $radius . " meter dari Kantor|radius";
         } else {
             if ($cek > 0) {
-                // if ($jam_pulang < $jamkerja_pulang) {
-                //    echo "error|Maaf Belum Waktunya Pulang |out";
-                // } 
-                if (!empty($datapresensi->jam_out)) {
-                    echo "error|Anda Sudah Melakukan Absen Pulang Sebelmnya ! |out";
-                } else {
+               // if ($jam_pulang < $jamkerja_pulang) {
+               //    echo "error|Maaf Belum Waktunya Pulang |out";
+               // } 
+               // if (!empty($datapresensi->jam_out)) {
+               //     echo "error|Anda Sudah Melakukan Absen Pulang Sebelmnya ! |out";
+               // } else {
                     $data_pulang = [
                         'jam_out' => $jam,
                         'foto_out' => $fileName,
@@ -252,13 +252,12 @@ class PresensiController extends Controller
                         ));
 
                         $response = curl_exec($curl);
-
                         curl_close($curl);
                         //echo $response;
-                    } else {
-                        echo "error|Maaf Gagal absen, Hubungi Tim It|out";
-                    }
-                }
+                //    } else {
+                //        echo "error|Maaf Gagal absen, Hubungi Tim It|out";
+                //    }
+                //}
             } else {
                 if ($jam < $jamkerja->awal_jam_masuk) {
                     echo "error|Maaf Belum Waktunya Melakuan Presensi|in";
